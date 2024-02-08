@@ -15,12 +15,12 @@
 		7E90D3522B74FA3A00F583CC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E90D3512B74FA3A00F583CC /* ViewController.swift */; };
 		7E90D3582B74FA3A00F583CC /* CountDown.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7E90D3562B74FA3A00F583CC /* CountDown.xcdatamodeld */; };
 		7E90D35A2B74FA3D00F583CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E90D3592B74FA3D00F583CC /* Assets.xcassets */; };
-		7E90D35D2B74FA3D00F583CC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E90D35B2B74FA3D00F583CC /* LaunchScreen.storyboard */; };
 		7E90D3682B74FA3D00F583CC /* CountDownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E90D3672B74FA3D00F583CC /* CountDownTests.swift */; };
 		7E90D3722B74FA3D00F583CC /* CountDownUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E90D3712B74FA3D00F583CC /* CountDownUITests.swift */; };
 		7E90D3742B74FA3D00F583CC /* CountDownUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E90D3732B74FA3D00F583CC /* CountDownUITestsLaunchTests.swift */; };
 		7E90D3832B74FE7F00F583CC /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 7E90D3822B74FE7E00F583CC /* Podfile */; };
 		7E90D3852B74FE9100F583CC /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 7E90D3842B74FE9000F583CC /* .swiftlint.yml */; };
+		7E90D38F2B754D6A00F583CC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7E90D3912B754D6A00F583CC /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +54,6 @@
 		7E90D3512B74FA3A00F583CC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7E90D3572B74FA3A00F583CC /* CountDown.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CountDown.xcdatamodel; sourceTree = "<group>"; };
 		7E90D3592B74FA3D00F583CC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		7E90D35C2B74FA3D00F583CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7E90D35E2B74FA3D00F583CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7E90D3632B74FA3D00F583CC /* CountDownTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CountDownTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E90D3672B74FA3D00F583CC /* CountDownTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownTests.swift; sourceTree = "<group>"; };
@@ -63,6 +62,8 @@
 		7E90D3732B74FA3D00F583CC /* CountDownUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		7E90D3822B74FE7E00F583CC /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		7E90D3842B74FE9000F583CC /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		7E90D3902B754D6A00F583CC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7E90D3942B754D8B00F583CC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CEFCDBD6C7F94DC173B0C768 /* Pods-CountDown.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CountDown.debug.xcconfig"; path = "Target Support Files/Pods-CountDown/Pods-CountDown.debug.xcconfig"; sourceTree = "<group>"; };
 		FC1ABC813DD272851451505D /* Pods-CountDown-CountDownUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CountDown-CountDownUITests.release.xcconfig"; path = "Target Support Files/Pods-CountDown-CountDownUITests/Pods-CountDown-CountDownUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -183,7 +184,6 @@
 			isa = PBXGroup;
 			children = (
 				7E90D3592B74FA3D00F583CC /* Assets.xcassets */,
-				7E90D35B2B74FA3D00F583CC /* LaunchScreen.storyboard */,
 				7E90D35E2B74FA3D00F583CC /* Info.plist */,
 			);
 			path = Helpers;
@@ -192,6 +192,7 @@
 		7E90D3892B74FFA100F583CC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7E90D3912B754D6A00F583CC /* Localizable.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -319,6 +320,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 7E90D3412B74FA3A00F583CC;
 			productRefGroup = 7E90D34B2B74FA3A00F583CC /* Products */;
@@ -337,9 +339,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E90D38F2B754D6A00F583CC /* Localizable.strings in Resources */,
 				7E90D3852B74FE9100F583CC /* .swiftlint.yml in Resources */,
 				7E90D3832B74FE7F00F583CC /* Podfile in Resources */,
-				7E90D35D2B74FA3D00F583CC /* LaunchScreen.storyboard in Resources */,
 				7E90D35A2B74FA3D00F583CC /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -492,12 +494,13 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		7E90D35B2B74FA3D00F583CC /* LaunchScreen.storyboard */ = {
+		7E90D3912B754D6A00F583CC /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				7E90D35C2B74FA3D00F583CC /* Base */,
+				7E90D3902B754D6A00F583CC /* en */,
+				7E90D3942B754D8B00F583CC /* ru */,
 			);
-			name = LaunchScreen.storyboard;
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -507,6 +510,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -567,6 +571,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
