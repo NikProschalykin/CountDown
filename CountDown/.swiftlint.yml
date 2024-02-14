@@ -175,8 +175,8 @@ identifier_name:
     warning: 100
     error: 100
   min_length:
-    warning: 2
-    error: 2
+    warning: 1
+    error: 1
   allowed_symbols:
     - '_'
   excluded:
