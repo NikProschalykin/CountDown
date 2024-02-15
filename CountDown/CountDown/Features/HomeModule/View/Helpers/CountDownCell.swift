@@ -11,7 +11,7 @@ final class CountDownCell: UICollectionViewCell {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.font = UIFont.systemFont(ofSize: 24)
         $0.textColor = Resources.Colors.Strings.text
-        
+
         return $0
     }(UILabel())
 
@@ -35,7 +35,6 @@ final class CountDownCell: UICollectionViewCell {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.hidesWhenStopped = true
         $0.color = .white
-        //$0.sizeToFit()
 
         return $0
     }(UIActivityIndicatorView(frame: .zero))
@@ -103,7 +102,7 @@ extension CountDownCell {
 private extension CountDownCell {
     func viewLoaded() {
         countDownActivity.startAnimating()
-        let toValue = getProgressDate(creationDate: creationDate!, eventDate: eventDate!)
+        let toValue = getProgressValue(creationDate: creationDate!, eventDate: eventDate!)
 
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.fromValue = 0
@@ -112,6 +111,7 @@ private extension CountDownCell {
         animation.fillMode = .forwards
         animation.duration = 1.0
         self.progressShape.add(animation, forKey: "progressStrokeAnimation")
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
             self?.countDownActivity.stopAnimating()
         }
@@ -122,7 +122,7 @@ private extension CountDownCell {
 
     func configure() {
         guard let creationDate, let eventDate else { return }
-        progressFromValue = getProgressDate(creationDate: creationDate, eventDate: eventDate)
+        progressFromValue = getProgressValue(creationDate: creationDate, eventDate: eventDate)
     }
 
     func addViews() {
@@ -153,21 +153,29 @@ private extension CountDownCell {
             let eventDate = self?.eventDate
             let creationDate = self?.creationDate
 
-            guard let eventDate, let creationDate else { return }
-            
-            self?.countDownLabel.text = self?.getDisplayedString(from: eventDate)
+            guard let eventDate, let creationDate, let self else { return }
 
-            let progressValue = self?.getProgressDate(creationDate: creationDate, eventDate: eventDate)
+
+            self.countDownLabel.text = self.getDisplayedString(from: eventDate)
+
+            let progressValue = self.getProgressValue(creationDate: creationDate, eventDate: eventDate)
 
             let animation = CABasicAnimation(keyPath: "strokeEnd")
-            animation.fromValue = self?.progressFromValue
+            animation.fromValue = self.progressFromValue
             animation.toValue = progressValue
             animation.isRemovedOnCompletion = false
             animation.fillMode = .forwards
             animation.duration = 1.0
-            self?.progressShape.add(animation, forKey: "progressStrokeAnimation")
+            self.progressShape.add(animation, forKey: "progressStrokeAnimation")
 
-            self?.progressFromValue = progressValue ?? 0
+            guard self.progressFromValue < 1.0 else {
+                print(self.progressFromValue)
+                self.countDownLabel.text = self.getDisplayedString(from: eventDate)
+                self.timer.invalidate()
+                return
+            }
+
+            self.progressFromValue = progressValue
         }
     }
 
@@ -189,7 +197,7 @@ private extension CountDownCell {
         return days == 0 ? [hoursStr, minutesStr, secondsStr].joined(separator: ":") : [daysStr, hoursStr, minutesStr, secondsStr].joined(separator: ":")
     }
 
-    func getProgressDate(creationDate: Date, eventDate: Date) -> Double {
+    func getProgressValue(creationDate: Date, eventDate: Date) -> Double {
         let currentInterval = Date.now.timeIntervalSinceReferenceDate
         let startInterval = creationDate.timeIntervalSinceReferenceDate
         let endInterval = eventDate.timeIntervalSinceReferenceDate
@@ -205,7 +213,6 @@ private extension CountDownCell {
                           height: self.contentView.bounds.height - 80)
 
         let cornerRadius = Double(20)
-
 
         progressStroke.move(to: CGPoint(x: rect.maxX / 2, y: 0))
 
@@ -234,7 +241,6 @@ private extension CountDownCell {
                                                           y: rect.minY))
 
         progressStroke.addLine(to: CGPoint(x: rect.maxX / 2, y: 0))
-
 
         let trackShape = CAShapeLayer()
         trackShape.path = progressStroke.cgPath
