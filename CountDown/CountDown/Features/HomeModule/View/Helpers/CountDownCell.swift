@@ -186,7 +186,7 @@ private extension CountDownCell {
 
         let seconds = duration % 60
         let minutes = (duration / 60) % 60
-        let hours = duration / 3600
+        let hours = duration / 3600 % 24
         let days = (duration / 3600) / 24
 
         let secondsStr = seconds < 10 ? "0\(seconds)" : "\(seconds)"
