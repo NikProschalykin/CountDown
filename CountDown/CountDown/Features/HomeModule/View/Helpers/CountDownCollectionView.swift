@@ -60,3 +60,6 @@ extension CountDownCollectionView: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegateFlowLayout
 extension CountDownCollectionView: UICollectionViewDelegateFlowLayout {
 }
+
+extension CountDownCollectionView: CountDownCellDelegate {
+}

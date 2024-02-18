@@ -208,13 +208,13 @@ custom_rules:
     regex: '\bNSPoint\b'
     match_kinds: typeidentifier
     message: 'Use CGPoint instead of NSPoint'
-  no_cgfloat:
-    regex: '\bCGFloat\b'
-    match_kinds: typeidentifier
-    message: 'Use Double instead of CGFloat'
-  no_cgfloat2:
-    regex: '\bCGFloat\('
-    message: 'Use Double instead of CGFloat'
+#  no_cgfloat:
+#    regex: '\bCGFloat\b'
+#    match_kinds: typeidentifier
+#    message: 'Use Double instead of CGFloat'
+#  no_cgfloat2:
+#    regex: '\bCGFloat\('
+#    message: 'Use Double instead of CGFloat'
   swiftui_state_private:
     regex: '@(ObservedObject|EnvironmentObject)\s+var'
     message: 'SwiftUI @ObservedObject/@EnvironmentObject properties should be private'

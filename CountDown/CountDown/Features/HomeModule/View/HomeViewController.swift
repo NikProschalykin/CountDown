@@ -16,6 +16,7 @@ class HomeViewController: UIViewController {
     }
 
     private var collectionView = CountDownCollectionView()
+    private let homeNavigationView = HomeNavigationView()
 
 
     // MARK: - View lifecycle
@@ -25,6 +26,16 @@ class HomeViewController: UIViewController {
         layoutViews()
         configure()
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.isHidden = false
+    }
 }
 
 // MARK: - Private functions
@@ -32,18 +43,21 @@ private extension HomeViewController {
     func configure() {
         collectionView.viewDelegate = self
         view.backgroundColor = Resources.Colors.Backgrounds.background
-        title = "Отсчеты"
 
         presenter?.viewLoaded()
     }
 
     func addViews() {
-        [collectionView].forEach { view.addSubview($0) }
+        [collectionView, homeNavigationView].forEach { view.addSubview($0) }
     }
 
     func layoutViews() {
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            homeNavigationView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            homeNavigationView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            homeNavigationView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+
+            collectionView.topAnchor.constraint(equalTo: homeNavigationView.bottomAnchor, constant: 10),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -64,4 +78,8 @@ extension HomeViewController: HomeViewProtocol {
 
 // MARK: - CountDownCollectionViewDelegate
 extension HomeViewController: CountDownCollectionViewDelegate {
+}
+
+// MARK: - CountDownCellDelegate
+extension HomeViewController: CountDownCellDelegate {
 }

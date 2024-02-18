@@ -1,3 +1,17 @@
 // MARK: ENGLISH
 "welcome_title" = "Welcome";
 "event_happend" = "Event happend";
+
+// months names
+"January" = "January";
+"February" = "February";
+"March" = "March";
+"April" = "April";
+"May" = "May";
+"June" = "June";
+"July" = "July";
+"August" = "August";
+"September" = "September";
+"October" = "October";
+"November" = "November";
+"December" = "December";
