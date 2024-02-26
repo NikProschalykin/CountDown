@@ -5,7 +5,7 @@ enum TimeOfDay {
     case night
 }
 
-final class DateFormatterService {
+final class DateService {
     func getDisplayedString(from eventDate: Date) -> String {
         let duration = Int(Double(eventDate - Date.now).rounded())
 
@@ -50,18 +50,30 @@ final class DateFormatterService {
         let month = Calendar(identifier: .gregorian).component(.month, from: Date())
 
         switch month {
-        case 1: return String(localized: "January")
-        case 2: return String(localized: "February")
-        case 3: return String(localized: "March")
-        case 4: return String(localized: "April")
-        case 5: return String(localized: "May")
-        case 6: return String(localized: "June")
-        case 7: return String(localized: "July")
-        case 8: return String(localized: "August")
-        case 9: return String(localized: "September")
-        case 10: return String(localized: "October")
-        case 11: return String(localized: "November")
-        case 12: return String(localized: "December")
+        case 1:
+            return String(localized: "January")
+        case 2:
+            return String(localized: "February")
+        case 3:
+            return String(localized: "March")
+        case 4:
+            return String(localized: "April")
+        case 5:
+            return String(localized: "May")
+        case 6:
+            return String(localized: "June")
+        case 7:
+            return String(localized: "July")
+        case 8:
+            return String(localized: "August")
+        case 9:
+            return String(localized: "September")
+        case 10:
+            return String(localized: "October")
+        case 11:
+            return String(localized: "November")
+        case 12:
+            return String(localized: "December")
         default:
             return ""
         }

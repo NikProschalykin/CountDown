@@ -80,6 +80,3 @@ extension HomeViewController: HomeViewProtocol {
 extension HomeViewController: CountDownCollectionViewDelegate {
 }
 
-// MARK: - CountDownCellDelegate
-extension HomeViewController: CountDownCellDelegate {
-}

@@ -51,8 +51,9 @@ extension CountDownCollectionView: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CountDownCell.identifier, for: indexPath) as! CountDownCell
-        cell.setupCell(countDown: (viewDelegate?.countDowns[indexPath.item])!) //TODO: add guard
-
+        cell.setupCell(countDown: (viewDelegate?.countDowns[indexPath.item])!) 
+        cell.vcDelegate = self
+        
         return cell
     }
 }

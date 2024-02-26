@@ -1,7 +1,7 @@
 import UIKit
 
 final class HomeNavigationView: UIView {
-    private let dateFormatterService = DateFormatterService()
+    private let dateFormatterService = DateService()
     private var timer = Timer()
     private var fromValue = 0.0
 
@@ -10,12 +10,38 @@ final class HomeNavigationView: UIView {
         $0.axis = .vertical
         $0.spacing = 0
         $0.distribution = .equalCentering
-
+        
         $0.addArrangedSubview(dayLabel)
         $0.addArrangedSubview(monthLabel)
 
         return $0
     }(UIStackView(frame: .zero))
+
+    private lazy var navigationStack: UIStackView = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.axis = .horizontal
+        $0.spacing = 60
+        $0.distribution = .equalSpacing
+        $0.alignment = .trailing
+        
+        $0.addArrangedSubview(dateStackView)
+        //$0.addArrangedSubview(addTimerButton)
+
+        return $0
+    }(UIStackView(frame: .zero))
+
+    private lazy var addTimerButton: UIButton = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.addTarget(self, action: #selector(addTimerAction), for: .touchUpInside)
+
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 25, weight: .regular, scale: .large)
+        let image = Resources.Icons.addTimerIcon?.withConfiguration(imageConfig)
+        
+        $0.setImage(image, for: .normal)
+        $0.imageView?.tintColor = UIColor(named: "Stroke")
+
+        return $0
+    }(UIButton())
 
     private lazy var dayLabel: UILabel = {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -47,19 +73,22 @@ final class HomeNavigationView: UIView {
     }
 }
 
-extension HomeNavigationView {
-}
-
 private extension HomeNavigationView {
     func addViews() {
-        addSubview(dateStackView)
+        addSubview(navigationStack)
+        addSubview(addTimerButton)
     }
 
     func layoutViews() {
         NSLayoutConstraint.activate([
-            dateStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            dateStackView.topAnchor.constraint(equalTo: topAnchor, constant: 30),
-            dateStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30)
+            navigationStack.centerXAnchor.constraint(equalTo: centerXAnchor),
+//            navigationStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 110),
+//            navigationStack.widthAnchor.constraint(equalToConstant: 150),
+            navigationStack.topAnchor.constraint(equalTo: topAnchor, constant: 30),
+            navigationStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30),
+            
+            addTimerButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            addTimerButton.topAnchor.constraint(equalTo: topAnchor, constant: 10),
         ])
     }
 
@@ -69,6 +98,10 @@ private extension HomeNavigationView {
         drawDayProgress()
         monthLabel.text = dateFormatterService.getCurrentMonthFullString()
         dayLabel.text = dateFormatterService.getCurrentDayString()
+    }
+
+    @objc private func addTimerAction() {
+       print("Tapped")
     }
 
     func configureTimer() {
@@ -106,7 +139,7 @@ private extension HomeNavigationView {
         trackShape.path = strokePath.cgPath
         trackShape.fillColor = UIColor.clear.cgColor
         trackShape.lineWidth = 3
-        trackShape.strokeColor = UIColor.white.cgColor
+        trackShape.strokeColor = UIColor(named: "Stroke")?.cgColor
         trackShape.opacity = 1
         trackShape.strokeEnd = percent
 
@@ -114,7 +147,7 @@ private extension HomeNavigationView {
         defaultTrackShape.path = strokePath.cgPath
         defaultTrackShape.fillColor = UIColor.clear.cgColor
         defaultTrackShape.lineWidth = 3
-        defaultTrackShape.strokeColor = UIColor.white.cgColor
+        defaultTrackShape.strokeColor = UIColor(named: "Stroke")?.cgColor
         defaultTrackShape.opacity = 0.3
         defaultTrackShape.strokeEnd = 1
 
@@ -130,7 +163,7 @@ private extension HomeNavigationView {
         backGroundDotShape.path = dotPath.cgPath
         backGroundDotShape.lineWidth = 10
         backGroundDotShape.lineCap = .round
-        backGroundDotShape.strokeColor = UIColor.white.cgColor
+        backGroundDotShape.strokeColor = UIColor(named: "Stroke")?.cgColor
         backGroundDotShape.fillColor = UIColor.clear.cgColor
 
         let dotShape = CAShapeLayer()
@@ -174,7 +207,7 @@ private extension HomeNavigationView {
             let barShape = CAShapeLayer()
             barShape.path = barPath.cgPath
             barShape.fillColor = UIColor.clear.cgColor
-            barShape.strokeColor = dateFormatterService.currentTimeOfDay() == .day ? UIColor.white.cgColor : UIColor.clear.cgColor
+            barShape.strokeColor = dateFormatterService.currentTimeOfDay() == .day ? UIColor(named: "Stroke")?.cgColor : UIColor.clear.cgColor
             barShape.lineCap = .round
             barShape.lineWidth = 4
 

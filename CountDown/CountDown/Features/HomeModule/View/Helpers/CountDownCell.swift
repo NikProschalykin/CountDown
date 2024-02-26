@@ -4,7 +4,7 @@ protocol CountDownCellDelegate: AnyObject {
 }
 
 final class CountDownCell: UICollectionViewCell {
-    private let dateFormatterService = DateFormatterService()
+    private let dateFormatterService = DateService()
     private var timer = Timer()
     private var eventDate: Date? = Date()
     private var creationDate: Date? = Date()
@@ -40,7 +40,7 @@ final class CountDownCell: UICollectionViewCell {
     private lazy var countDownActivity: UIActivityIndicatorView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.hidesWhenStopped = true
-        $0.color = .white
+        $0.color = UIColor(named: "Stroke")
 
         return $0
     }(UIActivityIndicatorView(frame: .zero))
@@ -225,14 +225,14 @@ private extension CountDownCell {
         trackShape.path = progressStroke.cgPath
         trackShape.fillColor = UIColor.clear.cgColor
         trackShape.lineWidth = 3
-        trackShape.strokeColor = UIColor.white.cgColor
+        trackShape.strokeColor = UIColor(named: "Stroke")?.cgColor
         trackShape.opacity = 0.1
 
         let progressShape = CAShapeLayer()
         progressShape.path = progressStroke.cgPath
         progressShape.fillColor = UIColor.clear.cgColor
         progressShape.lineWidth = 3
-        progressShape.strokeColor = UIColor.white.cgColor
+        progressShape.strokeColor = UIColor(named: "Stroke")?.cgColor
         progressShape.opacity = 1
         progressShape.lineCap = .round
         progressShape.strokeStart = 0

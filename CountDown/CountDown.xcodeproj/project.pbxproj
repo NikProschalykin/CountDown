@@ -11,7 +11,7 @@
 		0E064F244372B5D4491AD553 /* Pods_CountDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02D73B8C22F3BA1B92E47B17 /* Pods_CountDown.framework */; };
 		329387F12998B47BB6DE2FCC /* Pods_CountDown_CountDownUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 216288B49A7FC38DC20CDC6F /* Pods_CountDown_CountDownUITests.framework */; };
 		7E2734572B7EAA1E00ED2B28 /* HomeNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2734562B7EAA1E00ED2B28 /* HomeNavigationView.swift */; };
-		7E27345A2B7F842900ED2B28 /* DateFormatterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2734592B7F842900ED2B28 /* DateFormatterService.swift */; };
+		7E27345A2B7F842900ED2B28 /* DateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2734592B7F842900ED2B28 /* DateService.swift */; };
 		7E90D34E2B74FA3A00F583CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E90D34D2B74FA3A00F583CC /* AppDelegate.swift */; };
 		7E90D3502B74FA3A00F583CC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E90D34F2B74FA3A00F583CC /* SceneDelegate.swift */; };
 		7E90D3582B74FA3A00F583CC /* CountDown.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7E90D3562B74FA3A00F583CC /* CountDown.xcdatamodeld */; };
@@ -63,7 +63,7 @@
 		6EFBBFF2EEF3A2CD41803E8E /* Pods_CountDownTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CountDownTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		770D360CF36A07053E200F24 /* Pods-CountDownTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CountDownTests.debug.xcconfig"; path = "Target Support Files/Pods-CountDownTests/Pods-CountDownTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7E2734562B7EAA1E00ED2B28 /* HomeNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationView.swift; sourceTree = "<group>"; };
-		7E2734592B7F842900ED2B28 /* DateFormatterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterService.swift; sourceTree = "<group>"; };
+		7E2734592B7F842900ED2B28 /* DateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateService.swift; sourceTree = "<group>"; };
 		7E90D34A2B74FA3A00F583CC /* CountDown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CountDown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E90D34D2B74FA3A00F583CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7E90D34F2B74FA3A00F583CC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -140,7 +140,7 @@
 		7E2734582B7F840200ED2B28 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				7E2734592B7F842900ED2B28 /* DateFormatterService.swift */,
+				7E2734592B7F842900ED2B28 /* DateService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -600,7 +600,7 @@
 				7ECEE08E2B7D18BD0058F95C /* Date + ext.swift in Sources */,
 				7E90D3A82B7575E300F583CC /* Resources.swift in Sources */,
 				7E90D34E2B74FA3A00F583CC /* AppDelegate.swift in Sources */,
-				7E27345A2B7F842900ED2B28 /* DateFormatterService.swift in Sources */,
+				7E27345A2B7F842900ED2B28 /* DateService.swift in Sources */,
 				7E2734572B7EAA1E00ED2B28 /* HomeNavigationView.swift in Sources */,
 				7E90D3972B756CEB00F583CC /* BaseView.swift in Sources */,
 				7E90D3A32B756E2D00F583CC /* HomeViewController.swift in Sources */,

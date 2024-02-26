@@ -16,5 +16,7 @@ enum Resources {
     enum Icons {
         static var timerIcon = UIImage(systemName: "timer")?
             .withRenderingMode(.alwaysTemplate)
+
+        static var addTimerIcon = UIImage(systemName: "goforward.plus")?.withRenderingMode(.alwaysTemplate)
     }
 }
