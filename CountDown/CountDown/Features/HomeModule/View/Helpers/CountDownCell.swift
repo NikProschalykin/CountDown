@@ -1,11 +1,17 @@
 import UIKit
 
+protocol CountDownCellDelegate: AnyObject {
+}
+
 final class CountDownCell: UICollectionViewCell {
+    private let dateFormatterService = DateService()
     private var timer = Timer()
     private var eventDate: Date? = Date()
     private var creationDate: Date? = Date()
     private var progressShape = CAShapeLayer()
     private var progressFromValue = 0.0
+
+    weak var vcDelegate: CountDownCellDelegate?
 
     private lazy var countDownLabel: UILabel = {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -25,7 +31,7 @@ final class CountDownCell: UICollectionViewCell {
 
     private lazy var timeIcon: UIImageView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.image = UIImage(systemName: "timer")?.withRenderingMode(.alwaysTemplate)
+        $0.image = Resources.Icons.timerIcon
         $0.tintColor = .gray
 
         return $0
@@ -34,7 +40,7 @@ final class CountDownCell: UICollectionViewCell {
     private lazy var countDownActivity: UIActivityIndicatorView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.hidesWhenStopped = true
-        $0.color = .white
+        $0.color = UIColor(named: "Stroke")
 
         return $0
     }(UIActivityIndicatorView(frame: .zero))
@@ -81,11 +87,11 @@ final class CountDownCell: UICollectionViewCell {
 }
 
 extension CountDownCell {
-    public func setupCell(countDown: CountDownEntity) { //TODO: Change to date
+    public func setupCell(countDown: CountDownEntity) {
         countDownTitle.text = countDown.title
         self.eventDate = countDown.eventDate
         self.creationDate = countDown.creationDate
-        countDownLabel.text = getDisplayedString(from: eventDate!)
+        countDownLabel.text = dateFormatterService.getDisplayedString(from: eventDate!)
 
         viewLoaded()
     }
@@ -102,7 +108,7 @@ extension CountDownCell {
 private extension CountDownCell {
     func viewLoaded() {
         countDownActivity.startAnimating()
-        let toValue = getProgressValue(creationDate: creationDate!, eventDate: eventDate!)
+        let toValue = dateFormatterService.getProgressValue(creationDate: creationDate!, eventDate: eventDate!)
 
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.fromValue = 0
@@ -122,7 +128,7 @@ private extension CountDownCell {
 
     func configure() {
         guard let creationDate, let eventDate else { return }
-        progressFromValue = getProgressValue(creationDate: creationDate, eventDate: eventDate)
+        progressFromValue = dateFormatterService.getProgressValue(creationDate: creationDate, eventDate: eventDate)
     }
 
     func addViews() {
@@ -156,9 +162,9 @@ private extension CountDownCell {
             guard let eventDate, let creationDate, let self else { return }
 
 
-            self.countDownLabel.text = self.getDisplayedString(from: eventDate)
+            self.countDownLabel.text = self.dateFormatterService.getDisplayedString(from: eventDate)
 
-            let progressValue = self.getProgressValue(creationDate: creationDate, eventDate: eventDate)
+            let progressValue = self.dateFormatterService.getProgressValue(creationDate: creationDate, eventDate: eventDate)
 
             let animation = CABasicAnimation(keyPath: "strokeEnd")
             animation.fromValue = self.progressFromValue
@@ -169,40 +175,13 @@ private extension CountDownCell {
             self.progressShape.add(animation, forKey: "progressStrokeAnimation")
 
             guard self.progressFromValue < 1.0 else {
-                print(self.progressFromValue)
-                self.countDownLabel.text = self.getDisplayedString(from: eventDate)
+                self.countDownLabel.text = self.dateFormatterService.getDisplayedString(from: eventDate)
                 self.timer.invalidate()
                 return
             }
 
             self.progressFromValue = progressValue
         }
-    }
-
-    func getDisplayedString(from eventDate: Date) -> String {
-        let duration = Int(Double(eventDate - Date.now).rounded())
-
-        guard duration >= 0 else { return String(localized: "event_happend") }
-
-        let seconds = duration % 60
-        let minutes = (duration / 60) % 60
-        let hours = duration / 3600 % 24
-        let days = (duration / 3600) / 24
-
-        let secondsStr = seconds < 10 ? "0\(seconds)" : "\(seconds)"
-        let minutesStr = minutes < 10 ? "0\(minutes)" : "\(minutes)"
-        let hoursStr = hours < 10 ? "0\(hours)" : "\(hours)"
-        let daysStr = days < 10 ? "0\(days)" : "\(days)"
-
-        return days == 0 ? [hoursStr, minutesStr, secondsStr].joined(separator: ":") : [daysStr, hoursStr, minutesStr, secondsStr].joined(separator: ":")
-    }
-
-    func getProgressValue(creationDate: Date, eventDate: Date) -> Double {
-        let currentInterval = Date.now.timeIntervalSinceReferenceDate
-        let startInterval = creationDate.timeIntervalSinceReferenceDate
-        let endInterval = eventDate.timeIntervalSinceReferenceDate
-
-        return ((currentInterval - startInterval) / (endInterval - startInterval))
     }
 
     func getProgressStrokes() -> (CAShapeLayer, CAShapeLayer) {
@@ -246,14 +225,14 @@ private extension CountDownCell {
         trackShape.path = progressStroke.cgPath
         trackShape.fillColor = UIColor.clear.cgColor
         trackShape.lineWidth = 3
-        trackShape.strokeColor = UIColor.white.cgColor
+        trackShape.strokeColor = UIColor(named: "Stroke")?.cgColor
         trackShape.opacity = 0.1
 
         let progressShape = CAShapeLayer()
         progressShape.path = progressStroke.cgPath
         progressShape.fillColor = UIColor.clear.cgColor
         progressShape.lineWidth = 3
-        progressShape.strokeColor = UIColor.white.cgColor
+        progressShape.strokeColor = UIColor(named: "Stroke")?.cgColor
         progressShape.opacity = 1
         progressShape.lineCap = .round
         progressShape.strokeStart = 0

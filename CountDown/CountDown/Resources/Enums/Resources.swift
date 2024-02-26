@@ -3,7 +3,7 @@ import UIKit
 enum Resources {
     enum Colors {
         enum Backgrounds {
-            static var background = UIColor.tertiarySystemBackground
+            static var background = UIColor.systemBackground
             static var countDownViewBackground = UIColor.systemGray4
         }
 
@@ -11,5 +11,12 @@ enum Resources {
             static var title = UIColor.secondaryLabel
             static var text = UIColor.label
         }
+    }
+
+    enum Icons {
+        static var timerIcon = UIImage(systemName: "timer")?
+            .withRenderingMode(.alwaysTemplate)
+
+        static var addTimerIcon = UIImage(systemName: "goforward.plus")?.withRenderingMode(.alwaysTemplate)
     }
 }

@@ -1,3 +1,5 @@
+import Foundation
+
 protocol HomeInteractorProtocol: AnyObject {
    func loadCountDowns()
 }
