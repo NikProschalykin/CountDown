@@ -1,6 +1,9 @@
 import UIKit
 
 protocol CountDownCellDelegate: AnyObject {
+    func editTimerTapped(timerItem: CountDownEntity)
+    func removeTimerTapped()
+    func relocateTimerTapped()
 }
 
 final class CountDownCell: UICollectionViewCell {
@@ -10,7 +13,8 @@ final class CountDownCell: UICollectionViewCell {
     private var creationDate: Date? = Date()
     private var progressShape = CAShapeLayer()
     private var progressFromValue = 0.0
-
+    private var countDown: CountDownEntity?
+    
     weak var vcDelegate: CountDownCellDelegate?
 
     private lazy var countDownLabel: UILabel = {
@@ -20,6 +24,42 @@ final class CountDownCell: UICollectionViewCell {
 
         return $0
     }(UILabel())
+
+    private lazy var timerMenu: UIMenu = {
+        let menuItems =
+        [
+            UIAction(title: String(localized: "edit_timer_menu_button"),
+                     image: Resources.Icons.editTimerMenuIcon,
+                     handler: { [weak self] _ in
+                         guard let countDown = self?.countDown else { return }
+                         self?.vcDelegate?.editTimerTapped(timerItem: countDown)
+                     }),
+            UIAction(title: String(localized: "relocate_timer_menu_button"),
+                     image: Resources.Icons.relocateTimerMenuIcon,
+                     attributes: .disabled, handler: { _ in }),
+            UIAction(title: String(localized: "remove_timer_menu_button"),
+                     image: Resources.Icons.removeTimerMenuIcon,
+                     attributes: .destructive,
+                     handler: { _ in })
+        ]
+
+        return UIMenu(title: String(localized: "timer_menu_label"), children: menuItems)
+    }()
+
+    private lazy var menuButton: UIButton = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .regular, scale: .medium)
+        let image = Resources.Icons.menuTimerIcon?.withConfiguration(imageConfig)
+
+        $0.setImage(image, for: .normal)
+        $0.imageView?.tintColor = UIColor(named: "Stroke")
+
+        $0.menu = timerMenu
+        $0.showsMenuAsPrimaryAction = true
+
+        return $0
+    }(UIButton(frame: .zero))
 
     private lazy var countDownTitle: UILabel = {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -92,7 +132,8 @@ extension CountDownCell {
         self.eventDate = countDown.eventDate
         self.creationDate = countDown.creationDate
         countDownLabel.text = dateFormatterService.getDisplayedString(from: eventDate!)
-
+        self.countDown = countDown
+        
         viewLoaded()
     }
 
@@ -101,6 +142,7 @@ extension CountDownCell {
         countDownTitle.text = nil
         eventDate = nil
         creationDate = nil
+        self.countDown = nil
         timer.invalidate()
     }
 }
@@ -132,15 +174,18 @@ private extension CountDownCell {
     }
 
     func addViews() {
-        [countDownTitle, countDownView, countDownActivity].forEach { contentView.addSubview($0) }
+        [countDownTitle, countDownView, countDownActivity, menuButton].forEach { contentView.addSubview($0) }
     }
 
     func layoutViews() {
         NSLayoutConstraint.activate([
             countDownTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            countDownTitle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            countDownTitle.trailingAnchor.constraint(equalTo: menuButton.leadingAnchor, constant: -10),
             countDownTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             countDownTitle.heightAnchor.constraint(equalToConstant: 40),
+
+            menuButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            menuButton.centerYAnchor.constraint(equalTo: countDownTitle.centerYAnchor),
 
             countDownActivity.centerYAnchor.constraint(equalTo: countDownView.centerYAnchor),
             countDownActivity.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),

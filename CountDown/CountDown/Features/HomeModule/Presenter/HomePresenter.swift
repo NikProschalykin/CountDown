@@ -1,6 +1,8 @@
 protocol HomePresenterProtocol: AnyObject {
     func viewLoaded()
     func countDownsLoaded(countDowns: [CountDownEntity])
+    func addTimerButtonTapped()
+    func editTimerTapped(timerItem: CountDownEntity)
 }
 
 class HomePresenter {
@@ -15,6 +17,14 @@ class HomePresenter {
 }
 
 extension HomePresenter: HomePresenterProtocol {
+    func editTimerTapped(timerItem: CountDownEntity) {
+        router.presentEditTimer(viewType: .edit, timerItem: timerItem)
+    }
+    
+    func addTimerButtonTapped() {
+        router.presentEditTimer(viewType: .add, timerItem: nil)
+    }
+
     func viewLoaded() {
         interactor.loadCountDowns()
     }

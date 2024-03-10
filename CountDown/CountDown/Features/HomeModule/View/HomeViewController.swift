@@ -18,7 +18,6 @@ class HomeViewController: UIViewController {
     private var collectionView = CountDownCollectionView()
     private let homeNavigationView = HomeNavigationView()
 
-
     // MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +41,7 @@ class HomeViewController: UIViewController {
 private extension HomeViewController {
     func configure() {
         collectionView.viewDelegate = self
+        homeNavigationView.vcDelegate = self
         view.backgroundColor = Resources.Colors.Backgrounds.background
 
         presenter?.viewLoaded()
@@ -78,5 +78,23 @@ extension HomeViewController: HomeViewProtocol {
 
 // MARK: - CountDownCollectionViewDelegate
 extension HomeViewController: CountDownCollectionViewDelegate {
+    func editTimerTapped(timerItem: CountDownEntity) {
+        presenter?.editTimerTapped(timerItem: timerItem)
+    }
+    
+    func removeTimerTapped() {
+        // ... TODO: Remove timer
+    }
+    
+    func relocateTimerTapped() {
+        // .. TODO: RelocateTimer
+    }
+    
 }
 
+// MARK: - HomeNavigationDelegate
+extension HomeViewController: HomeNavigationDelegate {
+    func addTimerButtonTapped() {
+        presenter?.addTimerButtonTapped()
+    }
+}

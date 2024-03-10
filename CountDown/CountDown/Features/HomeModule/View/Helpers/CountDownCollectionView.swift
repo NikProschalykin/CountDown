@@ -14,6 +14,10 @@ final class CountDownCollectionViewLayout: UICollectionViewFlowLayout {
 
 protocol CountDownCollectionViewDelegate: AnyObject {
     var countDowns: [CountDownEntity] { get }
+    
+    func editTimerTapped(timerItem: CountDownEntity)
+    func removeTimerTapped()
+    func relocateTimerTapped()
 }
 
 final class CountDownCollectionView: UICollectionView {
@@ -51,9 +55,9 @@ extension CountDownCollectionView: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CountDownCell.identifier, for: indexPath) as! CountDownCell
-        cell.setupCell(countDown: (viewDelegate?.countDowns[indexPath.item])!) 
+        cell.setupCell(countDown: (viewDelegate?.countDowns[indexPath.item])!)
         cell.vcDelegate = self
-        
+
         return cell
     }
 }
@@ -63,4 +67,15 @@ extension CountDownCollectionView: UICollectionViewDelegateFlowLayout {
 }
 
 extension CountDownCollectionView: CountDownCellDelegate {
+    func editTimerTapped(timerItem: CountDownEntity) {
+        viewDelegate?.editTimerTapped(timerItem: timerItem)
+    }
+    
+    func removeTimerTapped() {
+        // .. TODO: RemoveTimer
+    }
+    
+    func relocateTimerTapped() {
+        // .. TODO: RelocateTimer
+    }
 }

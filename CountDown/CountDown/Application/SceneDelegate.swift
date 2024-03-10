@@ -17,7 +17,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         window?.windowScene = windowScene
         window?.makeKeyAndVisible()
-        window?.rootViewController = UINavigationController(rootViewController: HomeModuleBuilder.build())
+        window?.rootViewController = UINavigationController(rootViewController: WorldModuleBuilder.build())
+        //UINavigationController(rootViewController: EditTimerModuleBuilder.build(viewType: .edit))
+        //UINavigationController(rootViewController: HomeModuleBuilder.build())
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

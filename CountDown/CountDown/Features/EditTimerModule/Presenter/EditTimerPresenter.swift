@@ -1,4 +1,8 @@
+import Foundation
+
 protocol EditTimerPresenterProtocol: AnyObject {
+    func editCountDown(title: String?, date: Date?)
+    func editCountDownBadSaveCD()
 }
 
 class EditTimerPresenter {
@@ -13,4 +17,11 @@ class EditTimerPresenter {
 }
 
 extension EditTimerPresenter: EditTimerPresenterProtocol {
+    func editCountDownBadSaveCD() {
+        view?.showBadRequestCDAlert()
+    }
+
+    func editCountDown(title: String?, date: Date?) {
+        interactor.editCountDown(title: title, date: date)
+    }
 }

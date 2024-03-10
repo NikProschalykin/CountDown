@@ -1,16 +1,22 @@
 import UIKit
 
+protocol HomeNavigationDelegate: AnyObject {
+    func addTimerButtonTapped()
+}
+
 final class HomeNavigationView: UIView {
     private let dateFormatterService = DateService()
     private var timer = Timer()
     private var fromValue = 0.0
+
+    weak var vcDelegate: HomeNavigationDelegate?
 
     private lazy var dateStackView: UIStackView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.axis = .vertical
         $0.spacing = 0
         $0.distribution = .equalCentering
-        
+
         $0.addArrangedSubview(dayLabel)
         $0.addArrangedSubview(monthLabel)
 
@@ -23,9 +29,8 @@ final class HomeNavigationView: UIView {
         $0.spacing = 60
         $0.distribution = .equalSpacing
         $0.alignment = .trailing
-        
+
         $0.addArrangedSubview(dateStackView)
-        //$0.addArrangedSubview(addTimerButton)
 
         return $0
     }(UIStackView(frame: .zero))
@@ -36,7 +41,7 @@ final class HomeNavigationView: UIView {
 
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 25, weight: .regular, scale: .large)
         let image = Resources.Icons.addTimerIcon?.withConfiguration(imageConfig)
-        
+
         $0.setImage(image, for: .normal)
         $0.imageView?.tintColor = UIColor(named: "Stroke")
 
@@ -82,26 +87,27 @@ private extension HomeNavigationView {
     func layoutViews() {
         NSLayoutConstraint.activate([
             navigationStack.centerXAnchor.constraint(equalTo: centerXAnchor),
-//            navigationStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 110),
-//            navigationStack.widthAnchor.constraint(equalToConstant: 150),
             navigationStack.topAnchor.constraint(equalTo: topAnchor, constant: 30),
             navigationStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30),
-            
+
             addTimerButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            addTimerButton.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            addTimerButton.topAnchor.constraint(equalTo: topAnchor, constant: 10)
         ])
     }
 
     func configure() {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = Resources.Colors.Backgrounds.background
-        drawDayProgress()
         monthLabel.text = dateFormatterService.getCurrentMonthFullString()
         dayLabel.text = dateFormatterService.getCurrentDayString()
+
+        DispatchQueue.main.async {
+            self.drawDayProgress()
+        }
     }
 
     @objc private func addTimerAction() {
-       print("Tapped")
+        vcDelegate?.addTimerButtonTapped()
     }
 
     func configureTimer() {
@@ -129,8 +135,16 @@ private extension HomeNavigationView {
             $0 != dayLabel.layer && $0 != monthLabel.layer
         })
 
-        let strokePath = UIBezierPath(arcCenter: CGPoint(x: 70, y: 80),
-                                      radius: 90,
+        var radius = Double(dateStackView.frame.width) - 12
+
+        if radius < 80 { radius = 80 }
+        if radius > 90 { radius = 90 }
+
+        let center = CGPoint(x: dateStackView.frame.width / 2,
+                             y: 80)
+
+        let strokePath = UIBezierPath(arcCenter: center,
+                                      radius: radius,
                                       startAngle: .pi,
                                       endAngle: 2 * .pi,
                                       clockwise: true)
@@ -152,8 +166,8 @@ private extension HomeNavigationView {
         defaultTrackShape.strokeEnd = 1
 
         let dotAngle = CGFloat.pi * (1 - percent)
-        let dotPoint = CGPoint(x: cos(-dotAngle) * 90 + 70,
-                               y: sin(-dotAngle) * 90 + 80)
+        let dotPoint = CGPoint(x: cos(-dotAngle) * radius + center.x,
+                               y: sin(-dotAngle) * radius + center.y)
 
         let dotPath = UIBezierPath()
         dotPath.move(to: dotPoint)
@@ -173,9 +187,9 @@ private extension HomeNavigationView {
         dotShape.strokeColor = UIColor.red.cgColor
         dotShape.fillColor = UIColor.clear.cgColor
 
-        let barsRadius: CGFloat = 105
+        let barsRadius: CGFloat = radius + 15
 
-        let barsPath = UIBezierPath(arcCenter: CGPoint(x: 70, y: 80),
+        let barsPath = UIBezierPath(arcCenter: center,
                                     radius: barsRadius,
                                     startAngle: .pi,
                                     endAngle: .pi * 2,
@@ -194,11 +208,11 @@ private extension HomeNavigationView {
 
         (1...6).forEach { _ in
             let barAngle = CGFloat.pi * angle
-            let startBarPoint = CGPoint(x: cos(-barAngle) * startBarRadius + CGFloat(70),
-                                        y: sin(-barAngle) * startBarRadius + CGFloat(80))
+            let startBarPoint = CGPoint(x: cos(-barAngle) * startBarRadius + center.x,
+                                        y: sin(-barAngle) * startBarRadius + center.y)
 
-            let endBarPoint = CGPoint(x: cos(-barAngle) * endBarRadius + CGFloat(70),
-                                        y: sin(-barAngle) * endBarRadius + CGFloat(80))
+            let endBarPoint = CGPoint(x: cos(-barAngle) * endBarRadius + center.x,
+                                      y: sin(-barAngle) * endBarRadius + center.y)
 
             let barPath = UIBezierPath()
             barPath.move(to: startBarPoint)

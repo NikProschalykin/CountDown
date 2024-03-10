@@ -1,6 +1,27 @@
 // MARK: RUSSIAN
-"welcome_title" = "Добро пожаловать!";
+
+// CountDowns string
 "event_happend" = "Событие наступило";
+
+// Titles
+"editTimerTitle" = "Изменить отсчет";
+"addTimerTitle" = "Новый отсчет";
+
+// Labels
+"date_label" = "Дата";
+
+"timer_menu_label" = "Выберите действие";
+
+// Buttons
+"add_timer_button" = "Добавить";
+"save_timer_button" = "Сохранить";
+
+"edit_timer_menu_button" = "Изменить таймер";
+"relocate_timer_menu_button" = "Переместить таймер";
+"remove_timer_menu_button" = "Удалить таймер";
+
+// Placeholders
+"enter_title" = "Введите название";
 
 // Название месяцев
 "January" = "Января";

@@ -1,6 +1,28 @@
 // MARK: ENGLISH
 "welcome_title" = "Welcome";
+
+// countDowns strings
 "event_happend" = "Event happend";
+
+// Titles
+"editTimerTitle" = "Edit countdown";
+"addTimerTitle" = "New countdown";
+
+// Labels
+"date_label" = "Date";
+
+"timer_menu_label" = "Select action";
+
+// Buttons
+"add_timer_button" = "Add";
+"save_timer_button" = "Save";
+
+"edit_timer_menu_button" = "Edit timer";
+"relocate_timer_menu_button" = "Relocate timer";
+"remove_timer_menu_button" = "Remove timer";
+
+// Placeholders
+"enter_title" = "Enter a name";
 
 // months names
 "January" = "January";
